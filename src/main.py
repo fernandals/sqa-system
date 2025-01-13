@@ -9,6 +9,8 @@ import random
 import csv
 from typing import List, Dict
 
+from audio_player import AudioPlayer
+
 def load_dataset(metadata_path: str = "datasets/metadata.csv") -> List[Dict[str, str]]:
     """Load dataset metadata from a CSV file, extracting TTS folders dynamically.
 
@@ -108,14 +110,19 @@ class TTSQualityTestApp:
             self.end_screen()
             return
         
+        # Limpar a tela anterior
+        for widget in self.root.winfo_children():
+            widget.destroy()
+        
+        # Informações do áudio atual
         audio_id = self.audio_files[self.current_audio_index]["audio_id"]
+        model = self.balanced_model_list[self.current_audio_index]
+        audio_path = f"datasets/{model}/{audio_id}.wav"
+
         tk.Label(self.root, text=f"Avaliando: {audio_id}").pack(pady=10)
         
-        # Selecionando caminho para áudio correto
-        audio_path = 'datasets/' + self.balanced_model_list[self.current_audio_index] + '/' + audio_id + '.wav'
-
-        # Botão para tocar o áudio
-        tk.Button(self.root, text="Reproduzir Áudio", command=lambda: play_audio(audio_path)).pack(pady=10)
+        # Reprodutor de áudio
+        self.audio_player = AudioPlayer(self.root, audio_path)
         
         # Escalas de avaliação
         '''
