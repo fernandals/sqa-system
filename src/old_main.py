@@ -4,7 +4,6 @@ from tkinter import simpledialog
 import csv
 import os
 import pygame
-import random
 
 import csv
 from typing import List, Dict
@@ -27,7 +26,6 @@ def load_dataset(metadata_path: str = "datasets/metadata.csv") -> List[Dict[str,
             
             for row in reader:
                 tts_folders = {
-                    # change this start with for another keyword !
                     key: value for key, value in row.items() if key.startswith("tts")
                 }
                 
@@ -46,16 +44,10 @@ def load_dataset(metadata_path: str = "datasets/metadata.csv") -> List[Dict[str,
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
-    # just for me to see it
-    #print(data)
+    print(data)
 
     return data
 
-# Função para tocar áudio
-def play_audio(audio_path):
-    pygame.mixer.init()
-    pygame.mixer.music.load(audio_path)
-    pygame.mixer.music.play()
 
 # Função para salvar resultados no CSV
 def save_to_csv(data, filename="resultados.csv"):
@@ -65,6 +57,12 @@ def save_to_csv(data, filename="resultados.csv"):
         if not file_exists:
             writer.writerow(["ParticipantID", "AudioID", "MOS", "Similarity", "Transcription"])
         writer.writerow(data)
+
+# Função para tocar áudio
+def play_audio(audio_path):
+    pygame.mixer.init()
+    pygame.mixer.music.load(audio_path)
+    pygame.mixer.music.play()
 
 # Classe principal da aplicação
 class TTSQualityTestApp:
@@ -79,16 +77,6 @@ class TTSQualityTestApp:
         self.mos_score = tk.IntVar()
         self.similarity_score = tk.IntVar()
         self.transcription = tk.StringVar()
-
-        # Selecionando amostras igualmente
-        models = [name for name in self.audio_files[0].keys() if name not in {'audio_id', 'ground_truth'}]
-
-        samples_per_model = len(self.audio_files) // len(models)
-        remainder = len(self.audio_files) % len(models)
-
-        self.balanced_model_list = models * samples_per_model
-        self.balanced_model_list += random.sample(models, remainder)  # adiciona o resto aleatoriamente
-        random.shuffle(self.balanced_model_list) 
         
         # Tela inicial
         self.init_screen()
@@ -108,17 +96,13 @@ class TTSQualityTestApp:
             self.end_screen()
             return
         
-        audio_id = self.audio_files[self.current_audio_index]["audio_id"]
+        audio_id = self.audio_files[self.current_audio_index]
         tk.Label(self.root, text=f"Avaliando: {audio_id}").pack(pady=10)
         
-        # Selecionando caminho para áudio correto
-        audio_path = 'datasets/' + self.balanced_model_list[self.current_audio_index] + '/' + audio_id + '.wav'
-
         # Botão para tocar o áudio
-        tk.Button(self.root, text="Reproduzir Áudio", command=lambda: play_audio(audio_path)).pack(pady=10)
+        tk.Button(self.root, text="Reproduzir Áudio", command=lambda: play_audio(audio_id)).pack(pady=10)
         
         # Escalas de avaliação
-        '''
         tk.Label(self.root, text="Qualidade (MOS):").pack(pady=5)
         tk.Scale(self.root, from_=1, to=5, orient="horizontal", variable=self.mos_score).pack(pady=5)
         
@@ -128,14 +112,13 @@ class TTSQualityTestApp:
         # Campo de transcrição
         tk.Label(self.root, text="Digite o texto ouvido:").pack(pady=5)
         tk.Entry(self.root, textvariable=self.transcription).pack(pady=5)
-        '''
         
         # Botão para avançar
         tk.Button(self.root, text="Próximo", command=self.save_response).pack(pady=20)
     
     def save_response(self):
         # Salvar os dados no CSV
-        audio_id = self.audio_files[self.current_audio_index]["audio_id"]
+        audio_id = self.audio_files[self.current_audio_index]
         data = [
             self.participant_id,
             audio_id,
@@ -155,7 +138,7 @@ class TTSQualityTestApp:
         tk.Label(self.root, text="Obrigado por participar!").pack(pady=20)
         tk.Button(self.root, text="Sair", command=self.root.quit).pack(pady=20)
 
-
+# Executar o programa
 if __name__ == "__main__":
     root = tk.Tk()
     app = TTSQualityTestApp(root)
