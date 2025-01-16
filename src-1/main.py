@@ -11,6 +11,8 @@ from typing import List, Dict
 
 from audio_player import AudioPlayer
 
+from ttkthemes import ThemedTk
+
 def load_dataset(metadata_path: str = "datasets/metadata.csv") -> List[Dict[str, str]]:
     """Load dataset metadata from a CSV file, extracting TTS folders dynamically.
 
@@ -164,6 +166,7 @@ class TTSQualityTestApp:
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
+    #root = tk.Tk()
+    root = ThemedTk(theme="ubuntu")
     app = TTSQualityTestApp(root)
     root.mainloop()
