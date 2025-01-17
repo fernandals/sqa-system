@@ -3,6 +3,7 @@ import streamlit as st
 st.set_page_config(
     page_title="Avaliação de Qualidade de Fala",
     page_icon=":loud_sound:",
+    initial_sidebar_state="collapsed",
 )
 
 st.write("# 🗣️ Teste de Síntese de Fala: Avaliação Subjetiva")
