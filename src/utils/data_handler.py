@@ -1,6 +1,7 @@
 import csv
 import random
 import uuid
+import os
 
 from typing import List, Dict
 
@@ -58,3 +59,26 @@ class DataHandler:
             print(f"An unexpected error occurred: {e}")
 
         return data
+    
+    def save_response(self, responses, filename="results.csv"):
+        """
+        Save the collected responses to a CSV file.
+
+        Args:
+        - responses (list): List of dictionaries containing participant_id, audio_id, test_type, and response
+        - filename (str): The CSV filename to save the data
+        """
+        file_exists = os.path.isfile(filename)
+        
+        with open(filename, mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+
+            if not file_exists:
+                writer.writerow(["ParticipantID", "AudioID", "TestType", "Response"])
+
+            for response in responses:
+                test_type = response['test_type']
+                response_value = response['response']
+                
+                row = [response['participant_id'], response['audio_id'], test_type, response_value]
+                writer.writerow(row)
