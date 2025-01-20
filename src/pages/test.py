@@ -56,7 +56,6 @@ for i, file in enumerate(data_handler.audio_files):
         ]
 
         st.write("**Qual o grau de similaridade entre a voz do áudio sintético e a voz do áudio natural?** (Escala de 1 a 5)")
-        #st.slider(f"Proximidade da amostra {i+1}", min_value=1, max_value=5, key=f"sim_{i}")
 
         selected_similarity = st.selectbox(
             f"Proximidade entre o áudio natural e sintético (Amostra {i+1})",
