@@ -25,4 +25,32 @@ st.write("Se você tiver mais perguntas ou quiser saber mais sobre a pesquisa, n
 
 st.write("---")
 
-st.button("Sair", on_click=lambda: st.stop())
+# Coleta de dados adicionais (Idade e Ocupação)
+st.markdown(
+    """
+    **Antes de finalizar, gostaríamos de saber um pouco mais sobre você.**  
+    Essas informações serão usadas para análise de métricas da pesquisa e são completamente confidenciais. 
+    Por favor, preencha os campos abaixo:
+    """
+)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    age = st.text_input("Qual a sua idade?", key="age")
+
+with col2:
+    occupation = st.text_input("Qual a sua ocupação?", key="occupation")
+
+l0, m0, r0 = st.columns(3)
+r0.button(
+    "Submeter",
+    on_click=st.session_state.data_handler.save_participant_info,
+    args=(st.session_state.data_handler.participant_id, age, occupation),
+    use_container_width=True
+)
+
+st.write("---")
+
+l, m, r = st.columns(3)
+m.button("Sair", on_click=lambda: st.stop(), use_container_width=True)

@@ -3,4 +3,5 @@ datasets/tts1/*
 datasets/tts2/*
 datasets/tts3/*
 
-results.csv
+
+*.csv

@@ -82,3 +82,23 @@ class DataHandler:
                 
                 row = [response['participant_id'], response['audio_id'], test_type, response_value]
                 writer.writerow(row)
+
+    def save_participant_info(self, participant_id, age, occupation, filename="participants_info.csv"):
+        """
+        Save participant's personal information (ID, Age, Occupation) to a CSV file.
+
+        Args:
+        - participant_id (str): Unique identifier for the participant
+        - age (str): Age of the participant
+        - occupation (str): Participant's occupation
+        - filename (str): The CSV filename to save the data
+        """
+        file_exists = os.path.isfile(filename)
+
+        with open(filename, mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+
+            if not file_exists:
+                writer.writerow(["ParticipantID", "Age", "Occupation"])
+
+            writer.writerow([participant_id, age, occupation])
