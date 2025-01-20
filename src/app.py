@@ -7,9 +7,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-if "data_handler" not in st.session_state:
-    st.session_state.data_handler = DataHandler()
-
 st.title("🗣️ Teste de Síntese de Fala: Avaliação Subjetiva")
 
 st.markdown(
@@ -33,4 +30,7 @@ st.text("")
 
 l, m, r = st.columns(3)
 if m.button("Iniciar Teste ▶️", use_container_width=True):
-    st.switch_page("pages/test.py")
+    if "data_handler" not in st.session_state:
+        st.session_state.data_handler = DataHandler()
+
+    st.switch_page("pages/quality.py")

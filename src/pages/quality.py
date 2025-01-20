@@ -74,10 +74,10 @@ for i, file in enumerate(selected_samples):
 
     st.write("---")
 
-st.write("Após preencher todas as respostas, clique abaixo para enviar.")
+st.write("Após preencher todas as respostas, clique abaixo para salvar e ir para o próximo teste.")
 
 l, m, r = st.columns(3)
-if m.button("Enviar Respostas", use_container_width=True):
+if m.button("Próximo Teste", use_container_width=True):
     handler.save_response(responses)
 
     st.switch_page("pages/similarity.py")

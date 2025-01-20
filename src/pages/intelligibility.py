@@ -62,4 +62,4 @@ st.write("Após preencher todas as respostas, clique abaixo para salvar e ir par
 l, m, r = st.columns(3)
 if m.button("Finalizar Teste", use_container_width=True):
     handler.save_response(responses)
-    st.success("Respostas enviadas com sucesso! Obrigado por participar.")
+    st.switch_page("pages/end.py")
