@@ -2,3 +2,6 @@ datasets/ground_truth/*.wav
 datasets/tts1/*
 datasets/tts2/*
 datasets/tts3/*
+
+
+*.csv
