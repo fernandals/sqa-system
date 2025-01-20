@@ -1,4 +1,5 @@
 import streamlit as st
+from utils.data_handler import DataHandler
 
 st.set_page_config(
     page_title="Avaliação de Qualidade de Fala",
@@ -6,16 +7,8 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-st.markdown(
-    """
-    <script>
-        window.onload = function() {
-            window.scrollTo(0, 0);
-        };
-    </script>
-    """,
-    unsafe_allow_html=True
-)
+if "data_handler" not in st.session_state:
+    st.session_state.data_handler = DataHandler()
 
 st.title("🗣️ Teste de Síntese de Fala: Avaliação Subjetiva")
 
