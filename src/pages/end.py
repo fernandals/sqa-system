@@ -12,7 +12,7 @@ st.markdown(
     """
     **Sua contribuição foi fundamental!** 🙏
 
-    A sua participação neste teste é de extrema importância para o avanço das pesquisas na área de conversão de texto em fala (TTS). Ao compartilhar suas avaliações sobre os áudios sintetizados, você ajudou a melhorar a qualidade, a naturalidade e a inteligibilidade dos sistemas de síntese de fala. 🚀
+    A sua participação neste teste é de extrema importância para o avanço das pesquisas na área de conversão de texto-fala (TTS). Ao compartilhar suas avaliações sobre os áudios sintetizados, você ajudou a melhorar a qualidade, a naturalidade e a inteligibilidade dos sistemas de síntese de fala. 🚀
 
     **O que acontece a seguir?**  
     Seus dados serão analisados para ajudar na melhoria dos modelos de TTS, contribuindo diretamente para o desenvolvimento de tecnologias de fala mais precisas e naturais. A sua opinião está fazendo a diferença
@@ -38,17 +38,17 @@ col1, col2 = st.columns(2)
 
 with col1:
     age = st.text_input("Qual a sua idade?", key="age")
+    specialist = st.checkbox("Trabalha na área de processamento de fala?", key="specialist")
 
 with col2:
     occupation = st.text_input("Qual a sua ocupação?", key="occupation")
 
-l0, m0, r0 = st.columns(3)
-r0.button(
-    "Submeter",
-    on_click=st.session_state.data_handler.save_participant_info,
-    args=(st.session_state.data_handler.participant_id, age, occupation),
-    use_container_width=True
-)
+    st.button(
+        "Submeter",
+        on_click=st.session_state.data_handler.save_participant_info,
+        args=(st.session_state.data_handler.participant_id, age, occupation),
+        use_container_width=True
+    )
 
 st.write("---")
 

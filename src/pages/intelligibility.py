@@ -15,7 +15,7 @@ st.text(f"ID do participante: {handler.participant_id}")
 
 st.markdown(
     """
-    Neste teste, você avaliará a **inteligibilidade** de áudios sintetizados, ou seja, quão bem é possível compreender o conteúdo falado.  
+    Neste teste, você avaliará a **inteligibilidade** de áudios sintetizados, ou seja, quão bem podemos compreender o conteúdo falado.  
 
     #### 📝 Como funciona?  
     1️⃣ **Ouça o áudio por completo** antes de fazer sua avaliação.  
@@ -57,7 +57,7 @@ for i, file in enumerate(selected_samples):
 
     st.write("---")
 
-st.write("Após preencher todas as respostas, clique abaixo para salvar e ir para o próximo teste.")
+st.write("Após preencher todas as respostas, clique abaixo para salvar e encerrar o teste.")
 
 l, m, r = st.columns(3)
 if m.button("Finalizar Teste", use_container_width=True):

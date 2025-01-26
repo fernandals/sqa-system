@@ -23,8 +23,8 @@ st.markdown(
 
     As opções de avaliação seguem a escala MOS:  
 
-    ⭐ **1 - Péssima qualidade**: Áudio com muitos ruídos, distorções ou difícil de entender.  
-    ⭐ **2 - Baixa qualidade**: Áudio com falhas perceptíveis que prejudicam a experiência.  
+    ⭐ **1 - Péssima qualidade**: Áudio com distorções ou difícil de entender.  
+    ⭐ **2 - Baixa qualidade**: Áudio com falhas perceptíveis.  
     ⭐ **3 - Qualidade razoável**: Áudio compreensível, mas com imperfeições notáveis.  
     ⭐ **4 - Boa qualidade**: Áudio natural e claro, com pequenas falhas.  
     ⭐ **5 - Excelente qualidade**: Áudio muito próximo à voz humana real, sem distorções.  

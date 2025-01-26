@@ -15,7 +15,7 @@ st.markdown(
 
     Estamos testando modelos de **conversão de texto em fala (TTS)** e sua avaliação subjetiva é fundamental para medir a qualidade das vozes geradas. Durante o experimento, você participará de **três testes diferentes**:
 
-    1️⃣ **Qualidade**: Você avaliará a **naturalidade e qualidade** dos áudios sintéticos.  
+    1️⃣ **Qualidade**: Você avaliará a **qualidade** dos áudios sintéticos.  
     2️⃣ **Similaridade**: Você comparará a voz do áudio sintético com a do locutor original para medir o quão semelhantes elas são.  
     3️⃣ **Inteligibilidade**: Você ouvirá um áudio sintético e deverá transcrever o que foi dito, ajudando a medir a clareza da fala gerada.  
 

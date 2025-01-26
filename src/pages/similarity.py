@@ -26,8 +26,8 @@ st.markdown(
 
     ⭐ **1 - Nada semelhante**: As vozes são completamente diferentes.  
     ⭐ **2 - Pouco semelhante**: Algumas características são parecidas, mas há diferenças marcantes.  
-    ⭐ **3 - Moderadamente semelhante**: A voz tem semelhanças perceptíveis, mas ainda há diferenças.  
-    ⭐ **4 - Muito semelhante**: As vozes são bem parecidas, com poucas diferenças.  
+    ⭐ **3 - Moderadamente semelhante**: A voz tem semelhanças, porém ainda notam-se diferenças.  
+    ⭐ **4 - Muito semelhante**: As vozes são bem parecidas.  
     ⭐ **5 - Quase idêntico**: A voz sintética é praticamente igual à original.  
     """
 )

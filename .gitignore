@@ -1,7 +1,8 @@
-datasets/ground_truth/*.wav
-datasets/tts1/*
-datasets/tts2/*
-datasets/tts3/*
+# Dataset files
+*.wav
 
-
+# DataHandler extras
 *.csv
+
+__pycache__/
+

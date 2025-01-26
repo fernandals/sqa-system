@@ -1,4 +1,0 @@
-audio_id,ground_truth,tts1,tts2,tts3
-agatha1,datasets/ground_truth/agatha1.wav,datasets/tts1/agatha1.wav,datasets/tts2/agatha1.wav,datasets/tts3/agatha1.wav
-agatha2,datasets/ground_truth/agatha2.wav,datasets/tts1/agatha2.wav,datasets/tts2/agatha2.wav,datasets/tts3/agatha2.wav
-agatha3,datasets/ground_truth/agatha3.wav,datasets/tts1/agatha3.wav,datasets/tts2/agatha3.wav,datasets/tts3/agatha3.wav

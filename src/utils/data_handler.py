@@ -21,6 +21,7 @@ class DataHandler:
         self.balanced_model_list += random.sample(models, remainder)  # adiciona o resto aleatoriamente
         random.shuffle(self.balanced_model_list)
 
+    '''
     def load_dataset(self, metadata_path: str = "datasets/metadata.csv") -> List[Dict[str, str]]:
         """Load dataset metadata from a CSV file, extracting TTS folders dynamically.
 
@@ -59,7 +60,46 @@ class DataHandler:
             print(f"An unexpected error occurred: {e}")
 
         return data
-    
+    '''
+
+    def load_dataset(self, metadata_path: str = "datasets/metadata.txt") -> List[Dict[str, str]]:
+        """Load dataset metadata from a TXT file, parsing fields separated by '|'.
+
+        Args:
+            metadata_path (str): Path to the metadata TXT file.
+
+        Returns:
+            List[Dict[str, str]]: A list of dictionaries containing metadata, 
+                                  with TTS folders as individual keys.
+        """
+        data = []
+
+        try:
+            with open(metadata_path, mode="r") as metadata_file:
+                for line in metadata_file:
+                    fields = line.strip().split("|")
+                    
+                    if len(fields) < 3:
+                        print(f"Skipping malformed line: {line.strip()}")
+                        continue
+                    
+                    record = {
+                        "audio_id": fields[0],
+                        "ground_truth": fields[1],
+                        "tts1": fields[2],
+                        "tts2": fields[3] if len(fields) > 3 else None,
+                        "tts3": fields[4] if len(fields) > 4 else None
+                    }
+                    
+                    data.append(record)
+
+        except FileNotFoundError:
+            print(f"Error: Metadata file not found at {metadata_path}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+
+        return data
+        
     def save_response(self, responses, filename="results.csv"):
         """
         Save the collected responses to a CSV file.
