@@ -1,4 +1,12 @@
+import sys
+import os
+
 import streamlit as st
+
+# utils path correction
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, parent_dir)
+
 from utils.data_handler import DataHandler
 
 st.set_page_config(
