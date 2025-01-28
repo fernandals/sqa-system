@@ -34,7 +34,10 @@ st.markdown(
 st.header("Avaliação das Amostras")
 
 # selecionando 20 amostras aleatoriamente
-selected_samples = random.sample(handler.audio_files, min(20, len(handler.audio_files)))
+if "selected_samples" not in st.session_state:
+    st.session_state.selected_samples = random.sample(handler.audio_files, min(20, len(handler.audio_files)))
+
+selected_samples = st.session_state.selected_samples
 
 responses = [] 
 
