@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 import csv
 
-models = ['tts1', 'tts2', 'tts3']
+models = ['ground_truth', 'tts1', 'tts2', 'tts3']
 
 gt_folder = Path("../../datasets/ground_truth")
 
