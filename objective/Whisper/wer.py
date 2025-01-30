@@ -1,7 +1,7 @@
 import os
 import csv
 import whisper
-from jiwer import wer
+from jiwer import wer, process_words
 
 def read_reference_file(file_path):
     """
@@ -47,12 +47,17 @@ def process_audio_files(audio_folder, reference_dict, model, csv_writer):
                 print(f"Warning: No reference text found for {filename}. Skipping.")
                 continue
             
-            error_rate = wer(reference_text, transcription)
+            print(reference_text, "--", transcription)
+
+            output = process_words(reference_text, transcription)
+            error_rate = output.wer
+
+            #error_rate = wer(reference_text, transcription)
             
-            csv_writer.writerow([audio_id, reference_text, transcription, error_rate])
+            csv_writer.writerow([audio_id, f"{error_rate:.4f}"])
 
 def main():
-    model = whisper.load_model("medium") 
+    model = whisper.load_model("small") 
 
     root_audio_folder = "../../datasets/"
     reference_file = "../../datasets/test_sentences.txt"
@@ -62,9 +67,9 @@ def main():
     # for each model calculate wer
     for model_folder in ['ground_truth', 'tts1', 'tts2', 'tts3']:
         with open("results/whisper_" + model_folder + ".csv", "w", newline="", encoding="utf-8") as csvfile:
-            csv_writer = csv.writer(csvfile)
+            csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)  
 
-            csv_writer.writerow(["audio_id", "reference_text", "transcription", "wer"])
+            csv_writer.writerow(["filename", "score"])
 
             audio_folder = os.path.join(root_audio_folder, model_folder)
             if os.path.exists(audio_folder):

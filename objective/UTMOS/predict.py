@@ -31,7 +31,7 @@ class Dataset(Dataset):
         wav, _ = torchaudio.load(fname)
         sample = {
             "wav": wav,
-            "fname": fname.name  # Save only the filename, not full path
+            "fname": fname.name  # save only the filename, not full path
         }
         return sample
     
@@ -65,7 +65,7 @@ def main():
         score = scorer.score(wav.to(device))
         
         with open(args.out_path, "w") as fw:
-            fw.write(f"{args.inp_path.name},{score[0]}\n")  # Save filename and score
+            fw.write(f"{args.inp_path.name},{score[0]}\n") 
 
     else:
         assert args.inp_dir is not None, "inp_dir is required when mode is predict_dir."
@@ -86,13 +86,13 @@ def main():
         scorer = Score(ckpt_path=args.ckpt_path, input_sample_rate=sr, device=device)
 
         with open(args.out_path, 'w') as fw:
-            fw.write("filename,score\n")  # Header for CSV-like format
+            fw.write("filename,score\n")  # header for csv
 
         for batch, filenames in tqdm.tqdm(loader):
             scores = scorer.score(batch.to(device))
             with open(args.out_path, 'a') as fw:
                 for fname, s in zip(filenames, scores):
-                    fw.write(f"{fname},{s}\n")  # Save filename and score
+                    fw.write(f"{fname},{s}\n")
 
 if __name__ == '__main__':
     main()
