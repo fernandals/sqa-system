@@ -1,60 +1,54 @@
 # sqa-system: Speech Quality Assessment System
 
-O sqa-system é uma ferramenta para avaliação de modelos de Text-to-Speech (TTS), projetada para ajudar na análise da qualidade da fala gerada por diferentes modelos.
+O **sqa-system** é uma ferramenta para avaliação da qualidade de fala gerada por modelos de Text-to-Speech (TTS). Ele inclui métodos de avaliação **subjetiva** e **objetiva**, permitindo uma análise completa da performance dos modelos.
 
-## Requisitos
+## Estrutura do Repositório
 
-- Python: 3.10.16
+O repositório está organizado em duas seções principais:
 
-## Instalação e Execução 
+- **subjective/**: Contém o sistema para avaliação subjetiva da qualidade da fala.
+- **objective/**: Contém o sistema para avaliação objetiva da qualidade da fala.
 
-Siga os passos abaixo para configurar o ambiente e executar o sistema:
+Cada uma dessas seções possui um README dedicado com instruções detalhadas para execução, incluindo requisitos, instalação e execução.
 
-#### 1. Clonar o Repositório
+## Organização dos Dados
 
-Primeiro, clone o repositório para o seu ambiente local:
+Os dados utilizados pelo sistema devem estar organizados conforme a estrutura a seguir:
 
-```bash
-git clone https://github.com/fernandals/sqa-system.git
-cd sqa-system
-```
-
-#### 2. Criar e Ativar o Ambiente Virtual
-
-Crie um ambiente virtual para instalar as dependências do projeto:
-
-```bash
-python -m venv venv
-```
-
-Ative o ambiente virtual:
-
-- No Windows:
+- **datasets/**: Diretório principal onde os dados devem ser armazenados.
+  - **ground_truth/**: Pasta contendo os áudios reais.
   
-  ```bash
-  .\venv\Scripts\activate
-  ```
+  - Pastas com nome começando com **"tts"**: Cada pasta contém áudios sintéticos. Dentro de cada uma dessas pastas, devem haver apenas arquivos de áudio `.wav`, e os arquivos devem ter o mesmo nome que os arquivos na pasta **ground_truth** para que o sistema consiga realizar a comparação corretamente.
 
-- No macOS/Linux:
-  
-  ```bash
-  source venv/bin/activate
-  ```
+  - **metadata.txt**: Arquivo que contém as informações de cada áudio no formato:
 
-#### 3. Instalar as Dependências
+    ```
+    audio_id|path_to_audio_tts1|path_to_audio_tts2|path_to_audio_tts3
+    ```
 
-Instale todas as dependências necessárias:
+    Onde `audio_id` é o identificador do áudio, e `path_to_audio_tts1`, `path_to_audio_tts2` e `path_to_audio_tts3` são os caminhos para os respectivos áudios sintéticos. Os caminhos devem ser relativos à pasta **datasets**.
+
+  - **test_sentences.txt**: Arquivo com a transcrição dos áudios, organizado da seguinte forma:
+
+    ```
+    audio_id|normalized_reference_text
+    ```
+
+    Onde `audio_id` é o identificador do áudio e `normalized_reference_text` é a transcrição do áudio normalizada.
+
+## Como Executar
+
+Para rodar um dos sistemas, acesse a pasta correspondente (**subjective/** ou **objective/**) e siga as instruções do respectivo README.
 
 ```bash
-pip install -r requirements.txt
+cd subjective  # ou cd objective
+cat README.md  # Leia as instruções para execução
 ```
 
-#### Execute o Sistema
+## Contribuição
 
-Execute o sistema usando o Streamlit:
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma _issue_ ou enviar um _pull request_.
 
-```
-streamlit run src/app.py
-```
+---
 
-O aplicativo será iniciado e você poderá acessá-lo diretamente no seu navegador.
+Para mais detalhes sobre cada tipo de avaliação, consulte os READMEs dentro das respectivas pastas.
