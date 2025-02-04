@@ -1,5 +1,5 @@
 # Dataset files
-*.wav
+# *.wav
 
 # DataHandler extras
 *.csv
