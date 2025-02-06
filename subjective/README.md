@@ -50,7 +50,7 @@ pip install -r requirements.txt
 Para rodar o sistema de avaliação subjetiva, execute:
 
 ```bash
-streamlit run src/app.py
+streamlit run app.py
 ```
 
 O aplicativo será iniciado e estará acessível diretamente no navegador.
