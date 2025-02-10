@@ -41,12 +41,13 @@ for i, file in enumerate(selected_samples):
 
     response_data = {
         'participant_id': handler.participant_id,
+        'model_id': handler.balanced_model_list[i],
         'audio_id': file['audio_id'],
         'test_type': 'intelligibility',
         'response': None  # será preenchido com a transcrição do usuário
     }
 
-    sin_audio_path = f"datasets/{handler.balanced_model_list[i]}/{file['audio_id']}.wav"
+    sin_audio_path = f"../datasets/{handler.balanced_model_list[i]}/{file['audio_id']}.wav"
 
     st.audio(sin_audio_path, format="audio/wav")
 

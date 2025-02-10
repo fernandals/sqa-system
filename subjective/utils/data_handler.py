@@ -21,48 +21,7 @@ class DataHandler:
         self.balanced_model_list += random.sample(models, remainder)  # adiciona o resto aleatoriamente
         random.shuffle(self.balanced_model_list)
 
-    '''
-    def load_dataset(self, metadata_path: str = "datasets/metadata.csv") -> List[Dict[str, str]]:
-        """Load dataset metadata from a CSV file, extracting TTS folders dynamically.
-
-        Args:
-            metadata_path (str): Path to the metadata CSV file.
-
-        Returns:
-            List[Dict[str, str]]: A list of dictionaries containing metadata, 
-                                with TTS folders as individual keys.
-        """
-        data = []
-
-        try:
-            with open(metadata_path, mode="r") as metadata_file:
-                reader = csv.DictReader(metadata_file)
-                
-                for row in reader:
-                    tts_folders = {
-                        # change this start with for another keyword !
-                        key: value for key, value in row.items() if key.startswith("tts")
-                    }
-                    
-                    record = {
-                        "audio_id": row["audio_id"],
-                        "ground_truth": row["ground_truth"],
-                    }
-                    record.update(tts_folders)
-                    
-                    data.append(record)
-
-        except FileNotFoundError:
-            print(f"Error: Metadata file not found at {metadata_path}")
-        except KeyError as e:
-            print(f"Error: Missing expected column in metadata file: {e}")
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-
-        return data
-    '''
-
-    def load_dataset(self, metadata_path: str = "datasets/metadata.txt") -> List[Dict[str, str]]:
+    def load_dataset(self, metadata_path: str = "../datasets/metadata.txt") -> List[Dict[str, str]]:
         """Load dataset metadata from a TXT file, parsing fields separated by '|'.
 
         Args:
@@ -114,13 +73,13 @@ class DataHandler:
             writer = csv.writer(file)
 
             if not file_exists:
-                writer.writerow(["ParticipantID", "AudioID", "TestType", "Response"])
+                writer.writerow(["ParticipantID", "ModelID", "AudioID", "TestType", "Response"])
 
             for response in responses:
                 test_type = response['test_type']
                 response_value = response['response']
                 
-                row = [response['participant_id'], response['audio_id'], test_type, response_value]
+                row = [response['participant_id'], response['model_id'], response['audio_id'], test_type, response_value]
                 writer.writerow(row)
 
     def save_participant_info(self, participant_id, age, occupation, filename="participants_info.csv"):
