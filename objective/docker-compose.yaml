@@ -1,0 +1,36 @@
+services:
+  #utmos:
+  #  build: ./UTMOS
+  #  volumes:
+  #    - ./dataset:/app/dataset
+  #    - ./results:/app/results
+  #  command: bash run_utmos.sh
+
+  metrics:
+    build:
+      context: ./Resemblyzer+Whisper
+    volumes:
+      - ./dataset:/app/dataset
+      - ./results:/app/results
+    command: bash -c "python similarity.py && python wer.py"
+
+  #visqol:
+  #  build:
+  #    context: ./ViSQOL
+  #  volumes:
+  #    - ./dataset:/app/dataset
+  #    - ./results:/app/results
+  #  command: bash -c "python mos_lqo.py"
+
+  comparator:
+    build:
+      context: .
+      dockerfile: Dockerfile.comparator
+    volumes:
+      - ./results:/app/results
+    depends_on:
+      #- utmos
+      - metrics
+      #- visqol
+    command: bash entrypoint.sh
+

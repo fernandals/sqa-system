@@ -52,7 +52,7 @@ for i, file in enumerate(selected_samples):
         'response': None  # será preenchido com base na avaliação
     }
 
-    audio_path = f"../datasets/{handler.balanced_model_list[i]}/{file['audio_id']}.wav"
+    audio_path = f"dataset/{handler.balanced_model_list[i]}/{file['audio_id']}.wav"
     st.audio(audio_path, format="audio/wav")
 
     st.write("**Avalie a qualidade do áudio sintético em uma escala de 1 a 5** (MOS - Mean Opinion Score).")

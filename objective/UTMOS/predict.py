@@ -1,6 +1,6 @@
 import argparse
 import pathlib
-import tqdm
+from tqdm import tqdm
 from torch.utils.data import Dataset, DataLoader
 import torchaudio
 from score import Score

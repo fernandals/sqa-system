@@ -21,7 +21,7 @@ class DataHandler:
         self.balanced_model_list += random.sample(models, remainder)  # adiciona o resto aleatoriamente
         random.shuffle(self.balanced_model_list)
 
-    def load_dataset(self, metadata_path: str = "../datasets/metadata.txt") -> List[Dict[str, str]]:
+    def load_dataset(self, metadata_path: str = "dataset/metadata.txt") -> List[Dict[str, str]]:
         """Load dataset metadata from a TXT file, parsing fields separated by '|'.
 
         Args:

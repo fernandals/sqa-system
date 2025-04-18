@@ -53,8 +53,8 @@ for i, file in enumerate(selected_samples):
         'response': None  # será preenchido com base na avaliação
     }
 
-    nat_audio_path = f"../datasets/ground_truth/{file['audio_id']}.wav"
-    sin_audio_path = f"../datasets/{handler.balanced_model_list[i]}/{file['audio_id']}.wav"
+    nat_audio_path = f"dataset/ground_truth/{file['audio_id']}.wav"
+    sin_audio_path = f"dataset/{handler.balanced_model_list[i]}/{file['audio_id']}.wav"
 
     col1, col2 = st.columns(2)
 

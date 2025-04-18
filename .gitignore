@@ -1,15 +1,28 @@
-# Dataset files
-*.wav
+# Diretórios ocultos do usuário
+.cache/
+.launchpadlib/
+.vim/
+.bash_history
+.python_history
+.viminfo
 
-# DataHandler extras
-*.csv
-
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.env
+.venv
+
+# Dataset e Resultados
+*.wav
+*.csv
+metadata.txt
+test_sentences.txt
 
 #*.ckpt
 #*.pt
-
-datasets*
 
 .vscode
 obj/

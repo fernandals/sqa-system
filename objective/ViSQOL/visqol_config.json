@@ -1,0 +1,8 @@
+{
+    "model": {
+      "identifier": "TFL3",
+      "path": "/visqol/models/tflite_model.tflite"
+    },
+    "use_speech_scoring": true
+  }
+  

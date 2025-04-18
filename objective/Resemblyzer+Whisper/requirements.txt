@@ -1,0 +1,3 @@
+Resemblyzer
+openai-whisper
+jiwer

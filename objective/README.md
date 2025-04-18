@@ -1,87 +1,105 @@
 # sqa-system: Avaliação Objetiva de Qualidade de Fala
 
-O **sqa-system** (avaliação objetiva) é uma ferramenta para a análise quantitativa da qualidade da fala gerada por modelos de Text-to-Speech (TTS). Utilizando métricas automáticas, o sistema processa os áudios da pasta `dataset` e gera relatórios detalhados para avaliação.
+O **sqa-system** é uma ferramenta para análise quantitativa da qualidade da fala gerada por modelos de *Text-to-Speech (TTS)*. Utilizando métricas automáticas, o sistema processa os áudios da pasta `dataset` e gera relatórios detalhados para avaliação.
 
-## Metodologia de Avaliação
-
-Para realizar a comparação final, é necessário gerar os _scores_ de cada métrica. O repositório inclui três abordagens principais:
-
-- **UTMOS**: Avalia a qualidade perceptiva dos áudios sintéticos.
-- **Whisper**: Calcula a taxa de erro no conteúdo falado.
-- **Resemblyzer**: Mede a semelhança entre a voz do áudio real e a voz sintética.
-
-## Configuração e Execução
-
-### UTMOS
-
-#### Configuração do Ambiente
-
-1. Criar um ambiente virtual com **Python 3.8.18**.
-2. Atualizar dependências:
-   ```bash
-   pip install --upgrade pip==24.0 setuptools==69.1.1
-   ```
-3. Instalar os pacotes necessários:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-#### Execução
-
-```bash
-cd UTMOS
-bash run_utmos.sh
-```
-
-Os _scores_ serão armazenados na pasta `results` em formato `.csv`.
+O sistema está containerizado com **Docker Compose**, eliminando problemas de compatibilidade entre bibliotecas e versões de Python.
 
 ---
 
-### Resemblyzer e Whisper
+## Pré-requisitos
 
-#### Configuração do Ambiente
-
-1. Criar um ambiente virtual com **Python 3.10.16**.
-2. Instalar as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-#### Execução
-
-Para calcular a similaridade da voz:
-```bash
-cd Resemblyzer
-python similarity.py
-```
-
-Para calcular a taxa de erro na transcrição:
-```bash
-cd Whisper
-python wer.py
-```
-
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- `megatools` (para baixar o dataset):
+  
+  ```bash
+  sudo apt install megatools
+  ```
 ---
 
-## Comparando Modelos
+## Como Executar
 
-Após a geração dos _scores_ em todas as métricas, execute:
+### 1. Baixar o dataset (opcional)
+
+Execute o script abaixo para baixar automaticamente o conjunto de dados necessário (cerca de 1.5 GB):
 
 ```bash
-python comparing_models.py
+bash download_dataset.sh
 ```
 
-Serão gerados relatórios comparativos para cada métrica avaliada.
+🔗 Link direto: [MEGA](https://mega.nz/file/SP53xSTQ#CzW6ERyJYPGUYmcq-AvF_7SXsM2yFW2lXjayrBPU_rQ)
 
----
+Esse script irá baixar e extrair o conteúdo para a pasta `dataset/`.
 
-## Visualização de Resultados
+### 2. Gerar os *scores* com todas as métricas:
 
-Para gerar gráficos comparativos e analisar visualmente os resultados, utilize o _notebook_:
+```bash
+docker-compose up --build
+```
+
+Esse comando irá:
+
+- Rodar o **UTMOS** (avaliação perceptiva)
+- Rodar o **Whisper** (taxa de erro de transcrição)
+- Rodar o **Resemblyzer** (similaridade de voz)
+- Rodar o **ViSQOL** (qualidade perceptiva baseada em referência)
+- Gerar os arquivos `.csv` na pasta `results/`
+
+### 3. Comparar os modelos:
+
+```bash
+docker-compose run comparator
+```
+
+### 4. Visualizar os resultados:
+
+Você pode abrir o notebook localmente:
 
 ```bash
 jupyter notebook plots.ipynb
 ```
 
-Execute as células disponíveis para visualizar os _plots_ de análise.
+## Estrutura dos Diretórios
 
+```perl
+objective/
+├── docker-compose.yml
+├── UTMOS/
+│   ├── Dockerfile
+│    ...
+│   ├── run_utmos.sh
+│   └── requirements.txt
+├── Resemblyzer+Whisper/
+│   ├── Dockerfile
+│   ├── similarity.py
+│   ├── wer.py
+│   └── requirements.txt
+├── ViSQOL/
+│   ├── Dockerfile
+│   ├── mos_lqo.py
+│   ├── WORKSPACE1
+│   └── requirements.txt
+├── dataset/
+├── results/
+├── comparing_models.py
+├── Dockerfile.comparator
+├── plots.ipynb
+├── entrypoint.sh
+├── README.md
+├── requirements.txt
+└── download_data.sh
+```
+
+## Sobre as Métricas
+
+- **UTMOS**: Avalia a qualidade perceptiva dos áudios sintéticos utilizando um modelo treinado com dados humanos.
+
+- **Whisper (WER)**: Realiza transcrição automática e calcula a *Word Error Rate (WER)*, uma métrica de inteligibilidade.
+
+- **Resemblyzer**: Mede a semelhança entre o locutor real e o locutor sintetizado usando embeddings vocais.
+
+- **ViSQOL**: Métrica objetiva de qualidade da fala baseada em comparação com referência, simulando a percepção auditiva humana.
+
+## Contato
+
+Contribuições são bem-vindas! Para dúvidas ou sugestões, abra uma issue ou envie um pull request.

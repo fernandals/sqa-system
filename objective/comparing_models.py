@@ -1,49 +1,46 @@
 import pandas as pd
 import glob
+import os
 
-def load_metric_results(metric_folder):
+def load_metric_results(metric_prefix):
     """
-    Loads speaker similarity or WER scores from CSV files in a given metric folder.
+    Loads CSV result files that start with a given metric prefix from the results folder.
 
     Args:
-        metric_folder (str): Name of the folder containing result CSV files.
+        metric_prefix (str): Prefix used in the result filenames (e.g., 'UTMOS').
 
     Returns:
-        pd.DataFrame: A DataFrame where columns represent different models,
-                      indexed by filenames, with scores as values.
+        pd.DataFrame: A DataFrame with models as columns and filenames as index.
     """
-    csv_files = glob.glob(metric_folder + "/results/*.csv")
+    csv_files = glob.glob(f"results/{metric_prefix}_*.csv")
     metric_data = {}
 
     for file in csv_files:
-        model_name = file.split("/")[-1].replace(".csv", "")  # extract model name from filename
-        df = pd.read_csv(file)
+        base_name = os.path.basename(file)
+        model_name = base_name.replace(f"{metric_prefix}_", "").replace(".csv", "")
 
+        df = pd.read_csv(file)
         if "filename" in df.columns and "score" in df.columns:
             metric_data[model_name] = df.set_index("filename")["score"]
         else:
             print(f"Warning: Skipping {file} as it does not contain expected columns.")
 
-    # sorting columns alphabetically
-    return pd.DataFrame(metric_data).sort_index(axis=1)
-
+    if metric_data:
+        return pd.DataFrame(metric_data).sort_index(axis=1)
+    else:
+        return pd.DataFrame()  # return empty dataframe if nothing valid
 
 def main():
-    """
-    Loads and compares speaker similarity or WER scores from different models,
-    then saves the results in a comparative CSV file for each metric.
-    """
+    # metrics = ['UTMOS', 'resemblyzer', 'whisper', 'visqol']
+    metrics = ['Resemblyzer', 'Whisper']
 
-    metrics_folders = ['UTMOS', 'Resemblyzer', 'Whisper']
-
-    for metric in metrics_folders:
-        comparative_df = load_metric_results(metric)
-        
-        if not comparative_df.empty:
-            comparative_df.to_csv(f"{metric}_comparison.csv")
-            print(f"Saved {metric}_comparison.csv")
+    for metric in metrics:
+        df = load_metric_results(metric)
+        if not df.empty:
+            df.to_csv(f"results/{metric}_comparison.csv")
+            print(f"✅ Saved results/{metric}_comparison.csv")
         else:
-            print(f"Warning: No valid data found for {metric}. Skipping.")
+            print(f"⚠️  No valid data found for {metric}. Skipping.")
 
 if __name__ == "__main__":
     main()

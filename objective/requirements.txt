@@ -1,5 +1,1 @@
-Resemblyzer
-jiwer
-whisper @ git+https://github.com/openai/whisper.git
-pandas
-jupyter
+pandas>=1.3
