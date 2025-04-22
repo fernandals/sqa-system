@@ -24,7 +24,7 @@ O sistema está containerizado com **Docker Compose**, eliminando problemas de c
 Execute o script abaixo para baixar automaticamente o conjunto de dados necessário (cerca de 1.5 GB):
 
 ```bash
-bash download_dataset.sh
+bash download_data.sh
 ```
 
 🔗 Link direto: [MEGA](https://mega.nz/file/SP53xSTQ#CzW6ERyJYPGUYmcq-AvF_7SXsM2yFW2lXjayrBPU_rQ)
@@ -34,7 +34,7 @@ Esse script irá baixar e extrair o conteúdo para a pasta `dataset/`.
 ### 2. Gerar os *scores* com todas as métricas:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Esse comando irá:
@@ -48,7 +48,7 @@ Esse comando irá:
 ### 3. Comparar os modelos:
 
 ```bash
-docker-compose run comparator
+docker compose run comparator
 ```
 
 ### 4. Visualizar os resultados:
