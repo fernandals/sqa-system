@@ -11,13 +11,10 @@ FILES=(
   "results/Whisper_tts1.csv"
   "results/Whisper_tts2.csv"
   "results/Whisper_tts3.csv"
-  #"results/ViSQOL_tts1.csv"
-  #"results/ViSQOL_tts2.csv"
-  #"results/ViSQOL_tts3.csv"
-  #"results/UTMOS_tts1.csv"
-  #"results/UTMOS_tts2.csv"
-  #"results/UTMOS_tts3.csv"
-  #"results/UTMOS_ground_truth.csv"
+  "results/UTMOS_tts1.csv"
+  "results/UTMOS_tts2.csv"
+  "results/UTMOS_tts3.csv"
+  "results/UTMOS_ground_truth.csv"
 )
 
 for file in "${FILES[@]}"; do

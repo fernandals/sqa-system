@@ -45,11 +45,14 @@ def compute_visqol_scores(gt_files, syn_files, config, output_csv_path: str):
 
         for gt_path, syn_path in zip(gt_files, syn_files):
             try:
-                ref_audio, _ = librosa.load(gt_path, sr=config.audio.sample_rate, mono=True)
-                deg_audio, _ = librosa.load(syn_path, sr=config.audio.sample_rate, mono=True)
+                #ref_audio, _ = librosa.load(gt_path, sr=config.audio.sample_rate, mono=True)
+                #deg_audio, _ = librosa.load(syn_path, sr=config.audio.sample_rate, mono=True)
 
-                ref_audio = ref_audio.astype(np.float32)
-                deg_audio = deg_audio.astype(np.float32)
+                #ref_audio = ref_audio.astype(np.float64)
+                #deg_audio = deg_audio.astype(np.float64)
+
+                ref_audio, _ = librosa.load(gt_path, sr=config.audio.sample_rate, mono=True, dtype=np.float64)
+                deg_audio, _ = librosa.load(syn_path, sr=config.audio.sample_rate, mono=True, dtype=np.float64)
 
                 # Ensure equal length
                 min_len = min(len(ref_audio), len(deg_audio))

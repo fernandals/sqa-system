@@ -44,14 +44,9 @@ Esse comando irá:
 - Rodar o **Resemblyzer** (similaridade de voz)
 - Rodar o **ViSQOL** (qualidade perceptiva baseada em referência)
 - Gerar os arquivos `.csv` na pasta `results/`
+- Gerar um arquivo `.csv` de comparação para cada métrica
 
-### 3. Comparar os modelos:
-
-```bash
-docker compose run comparator
-```
-
-### 4. Visualizar os resultados:
+### 3. Visualizar os resultados:
 
 Você pode abrir o notebook localmente:
 
