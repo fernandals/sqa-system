@@ -32,7 +32,7 @@ def load_metric_results(metric_prefix):
 
 def main():
     # metrics = ['UTMOS', 'resemblyzer', 'whisper', 'visqol']
-    metrics = ['Resemblyzer', 'Whisper']
+    metrics = ['UTMOS', 'Resemblyzer', 'Whisper']
 
     for metric in metrics:
         df = load_metric_results(metric)
